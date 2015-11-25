@@ -53,5 +53,10 @@
   },
   "scripts": {
     "test": "gulp travis"
+  },
+  "dependencies": {
+    "angular-animate": "^1.4.8",
+    "angular-touch": "^1.4.8",
+    "angular-ui-grid": "^3.0.7"
   }
 }

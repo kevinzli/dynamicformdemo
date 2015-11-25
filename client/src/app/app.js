@@ -9,8 +9,9 @@
     $urlRouterProvider.otherwise('/');
     $logProvider.debugEnabled(true);
 
-    //BackandProvider.setAnonymousToken('Your Anonymous Token');
-    //BackandProvider.setSignUpToken('Your SignUp Token');
+    BackandProvider.setAppName('dynamicformdemo');
+    BackandProvider.setSignUpToken('f11d9bc3-0233-44d6-905b-b580379549d3');
+    BackandProvider.setAnonymousToken('cbbe5b31-fd4d-4648-bd98-e0425d3380fe');
 
     $httpProvider.interceptors.push('httpInterceptor');
     $stateProvider
@@ -48,10 +49,70 @@
       'common.directives.version',
       'common.filters.uppercase',
       'common.interceptors.http',
-      'templates'
+      'templates',
+      'ngTouch',
+      'ui.grid'
     ])
     .config(config)
     .run(run)
     .controller('MainCtrl', MainCtrl)
-    .value('version', '1.1.0');
+    .value('version', '1.1.0')
+    .service('DynamicFormService', ['$http','Backand', DynamicFormService]);
+
+    function DynamicFormService($http,Backand) {
+        var self = this;
+        var baseUrl = Backand.getApiUrl() +'/1/objects/';
+        var anonymousToken = {
+            'AnonymousToken': 'cbbe5b31-fd4d-4648-bd98-e0425d3380fe'
+        };
+        var objectName = 'formTemplate';
+        self.readAll = function () {
+            return $http({
+                method: 'GET',
+                url: baseUrl + objectName,
+                headers: anonymousToken
+            }).then(function (response) {
+                return response.data;
+            });
+        };
+        self.readOne = function (id) {
+            return $http({
+                method: 'GET',
+                url: baseUrl + objectName + '/' + id,
+                headers: anonymousToken
+            }).then(function (response) {
+                return response.data;
+            });
+        };
+        self.create = function (data) {
+            return $http({
+                method: 'POST',
+                url: baseUrl + objectName,
+                data: data,
+                params: {
+                    returnObject: true
+                },
+                headers: anonymousToken
+            }).then(function (response) {
+                return response.data;
+            });
+        };
+        self.update = function (id, data) {
+            return $http({
+                method: 'PUT',
+                url: baseUrl + objectName + '/' + id,
+                data: data,
+                headers: anonymousToken
+            }).then(function (response) {
+                return response.data;
+            });
+        };
+        self.delete = function (id) {
+            return $http({
+                method: 'DELETE',
+                url: baseUrl + objectName + '/' + id,
+                headers: anonymousToken
+            });
+        };
+    }
 })();

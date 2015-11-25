@@ -22,68 +22,24 @@
    * @name  gettingStartedCtrl
    * @description Controller
    */
-  function GettingStartedCtrl($log, $state, Backand, BackandService) {
+  function GettingStartedCtrl($log, $state, Backand, BackandService, DynamicFormService) {
 
     var start = this;
 
-    (function init() {
-      start.username = '';
-      start.password = '';
-      start.appName = '';
-      start.objects = null;
-      start.isLoggedIn = false;
-      start.objectData = '{}';
-      start.results = 'Not connected to Backand yet';
-      loadObjects();
-    }());
-
-
-    start.signin = function () {
-
-      Backand.setAppName(start.appName);
-
-      Backand.signin(start.username, start.password)
-        .then(
-        function () {
-          start.results = 'you are in';
-          loadObjects();
-        },
-        function (data, status, headers, config) {
-          $log.debug('authentication error', data, status, headers, config);
-          start.results = data;
-        }
-      );
+    start.gridOptions = {
+        excludeProperties: '__metadata',
     };
 
-    start.signout = function (){
-      Backand.signout();
-      $state.go('root.getting-started',{}, {reload: true});
-    };
-
-    function loadObjects() {
-      BackandService.listOfObjects().then(loadObjectsSuccess, errorHandler);
+    start.load = function () {
+        DynamicFormService.readAll().then(function (response) {
+            start.gridOptions.data = response.data;
+        });
     }
 
-    function loadObjectsSuccess(list) {
-      start.objects = list.data.data;
-      start.results = 'Objects loaded';
-      start.isLoggedIn = true;
-    }
-
-    start.loadObjectData = function(){
-      BackandService.objectData(start.objectSelected).then(loadObjectDataSuccess, errorHandler);
-    };
-
-    function loadObjectDataSuccess(ObjectData) {
-      start.objectData = ObjectData.data.data;
-    }
-
-    function errorHandler(error, message) {
-      $log.debug(message, error);
-    }
+    start.load();
   }
 
-  angular.module('getting-started', [])
+  angular.module('getting-started', ['ngTouch','ui.grid'])
     .config(config)
-    .controller('GettingStartedCtrl', ['$log', '$state', 'Backand','BackandService', GettingStartedCtrl]);
+    .controller('GettingStartedCtrl', ['$log', '$state', 'Backand','BackandService','DynamicFormService', GettingStartedCtrl]);
 })();
