@@ -9,10 +9,10 @@
     $urlRouterProvider.otherwise('/');
     $logProvider.debugEnabled(true);
 
-    BackandProvider.setAppName('dynamicformdemo');
+    /*BackandProvider.setAppName('dynamicformdemo');
     BackandProvider.setSignUpToken('f11d9bc3-0233-44d6-905b-b580379549d3');
     BackandProvider.setAnonymousToken('cbbe5b31-fd4d-4648-bd98-e0425d3380fe');
-
+*/
     $httpProvider.interceptors.push('httpInterceptor');
     $stateProvider
       .state('root', {
@@ -51,7 +51,8 @@
       'common.interceptors.http',
       'templates',
       'ngTouch',
-      'ui.grid'
+      'ui.grid',
+      'ui.grid.edit'
     ])
     .config(config)
     .run(run)
@@ -61,15 +62,30 @@
 
     function DynamicFormService($http,Backand) {
         var self = this;
-        var baseUrl = Backand.getApiUrl() +'/1/objects/';
+        /*var baseUrl = Backand.getApiUrl() +'/1/objects/';
         var anonymousToken = {
             'AnonymousToken': 'cbbe5b31-fd4d-4648-bd98-e0425d3380fe'
         };
-        var objectName = 'formTemplate';
-        self.readAll = function () {
+        
+        var objectName = 'formTemplate';*/
+        
+        var baseUrl = 'https://api.backand.com/1/objects/';
+        var anonymousToken = {
+            'AnonymousToken': '78020290-5df3-44b8-9bdb-7b3b4fea2f25'
+        };
+
+        var objectName = 'products';
+
+        self.readAll = function (pageSize, pageNumber,sort, filter) {
             return $http({
                 method: 'GET',
                 url: baseUrl + objectName,
+                params: {
+                    pageSize: pageSize,
+                    pageNumber: pageNumber,
+                    sort: sort,
+                    filter: filter
+                },
                 headers: anonymousToken
             }).then(function (response) {
                 return response.data;
