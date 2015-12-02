@@ -20,7 +20,7 @@
     "gulp-concat": "~2.5.2",
     "gulp-csso": "~1.0.0",
     "gulp-header": "~1.2.2",
-    "gulp-html2js": "~0.2.0",
+    "gulp-html2js": "^0.2.0",
     "gulp-if": "~1.2.5",
     "gulp-imagemin": "~2.2.1",
     "gulp-jshint": "~1.10.0",
@@ -55,8 +55,16 @@
     "test": "gulp travis"
   },
   "dependencies": {
+    "angular": "^1.4.8",
     "angular-animate": "^1.4.8",
+    "angular-formly": "^7.3.4",
+    "angular-formly-templates-bootstrap": "^6.1.7",
     "angular-touch": "^1.4.8",
-    "angular-ui-grid": "^3.0.7"
+    "angular-ui-grid": "^3.0.7",
+    "angular-wizard": "^0.5.5",
+    "api-check": "^7.5.5",
+    "bootstrap": "^3.3.6",
+    "lodash": "^3.10.1",
+    "lodash-cli": "^3.10.1"
   }
 }

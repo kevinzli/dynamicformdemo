@@ -1,6 +1,6 @@
-<div ui-grid="gridOptions" class="grid" ui-grid-edit></div>
+<div ui-grid="gridOptions" class="grid" ui-grid-edit></div><br />
 <p>Current page:
-    <input type="number" min="1" max="{{ pagination.getTotalPages() }}" ng-model="pagination.pageNumber" ng-change="load()">of {{ pagination.getTotalPages() }}
+    <input type="number" min="1" max="{{ pagination.getTotalPages() }}" ng-model="pagination.pageNumber" ng-change="load()"> of {{ pagination.getTotalPages() }}
 </p>
 <button type="button" class="btn btn-success" ng-click="pagination.previousPage()">previous page</button>
 <button type="button" class="btn btn-success" ng-click="pagination.nextPage()">next page</button>

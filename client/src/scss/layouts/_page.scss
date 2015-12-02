@@ -3,3 +3,29 @@
     @include box-sizing();
   }
 }
+.container {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 20px;
+    top: 20px;
+    -webkit-box-shadow: 0 2px 2px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+
+body {
+  margin: 20px
+}
+
+.formly-field {
+  margin-bottom: 16px;
+}
+
+.formly-field-group {
+	margin-left: 20px;
+}
+
+.grid-action-cell {
+	margin-top: 5px;
+	padding-left: 20px;
+}

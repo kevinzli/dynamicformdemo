@@ -42,6 +42,8 @@
       'backand',
       'home',
       'getting-started',
+      'form',
+      'form-option',
       'common.header',
       'common.footer',
       'common.services.backand',
@@ -62,21 +64,21 @@
 
     function DynamicFormService($http,Backand) {
         var self = this;
-        /*var baseUrl = Backand.getApiUrl() +'/1/objects/';
+        var baseUrl = Backand.getApiUrl() +'/1/objects/';
         var anonymousToken = {
             'AnonymousToken': 'cbbe5b31-fd4d-4648-bd98-e0425d3380fe'
         };
         
-        var objectName = 'formTemplate';*/
+        //var objectName = 'formTemplate';
         
-        var baseUrl = 'https://api.backand.com/1/objects/';
+        /*var baseUrl = 'https://api.backand.com/1/objects/';
         var anonymousToken = {
             'AnonymousToken': '78020290-5df3-44b8-9bdb-7b3b4fea2f25'
         };
 
-        var objectName = 'products';
+        var objectName = 'products';*/
 
-        self.readAll = function (pageSize, pageNumber,sort, filter) {
+        self.readAll = function (objectName,pageSize, pageNumber,sort, filter) {
             return $http({
                 method: 'GET',
                 url: baseUrl + objectName,
@@ -91,7 +93,7 @@
                 return response.data;
             });
         };
-        self.readOne = function (id) {
+        self.readOne = function (objectName, id) {
             return $http({
                 method: 'GET',
                 url: baseUrl + objectName + '/' + id,
@@ -100,7 +102,7 @@
                 return response.data;
             });
         };
-        self.create = function (data) {
+        self.create = function (objectName, data) {
             return $http({
                 method: 'POST',
                 url: baseUrl + objectName,
@@ -113,7 +115,7 @@
                 return response.data;
             });
         };
-        self.update = function (id, data) {
+        self.update = function (objectName, id, data) {
             return $http({
                 method: 'PUT',
                 url: baseUrl + objectName + '/' + id,
@@ -123,7 +125,7 @@
                 return response.data;
             });
         };
-        self.delete = function (id) {
+        self.delete = function (objectName, id) {
             return $http({
                 method: 'DELETE',
                 url: baseUrl + objectName + '/' + id,

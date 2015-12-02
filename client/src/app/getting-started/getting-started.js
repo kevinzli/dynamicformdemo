@@ -68,7 +68,7 @@
               var data = {};
               data[colDef.name] = newValue;
               
-              DynamicFormService.update(id, data).then(function(response){
+              DynamicFormService.update('formTemplate',id, data).then(function(response){
                   $scope.load(); //The change may trigger other server side action that may change additional data
                   //$scope.$apply();
               });
@@ -98,16 +98,17 @@
     };
 
     $scope.gridOptions.columnDefs = [
-        { name: 'id', enableCellEdit: false, width: '10%' },
-        { name: 'name', enableCellEdit: false, displayName: 'Name', width: '20%' },
-        { name: 'type', displayName: 'Type', enableCellEdit: false, width: '20%' },
-        { name: 'description', displayName: 'Description', width: '30%' },
-        { name: 'price', displayName: 'Price', width: '20%' }
+        { name: 'id', enableCellEdit: false, width: '5%' },
+        { name: 'name', enableCellEdit: false, displayName: 'Name', width: '15%' },
+        { name: 'description', enableCellEdit: false, displayName: 'Description', width: '15%' },
+        { name: 'version', enableCellEdit: false, displayName: 'version', width: '10%' },
+        { name: 'templateJson', enableCellEdit: false, displayName: 'Template JSON', width: '40%' },
+        { name: 'created', enableCellEdit: false, displayName: 'Created', width: '15%'}
 
       ];
 
     $scope.load = function () {
-        DynamicFormService.readAll($scope.pagination.pageSize, $scope.pagination.pageNumber, $scope.sort,$scope.filter)  
+        DynamicFormService.readAll('formTemplate',$scope.pagination.pageSize, $scope.pagination.pageNumber, $scope.sort,$scope.filter)  
           .then(function (response) {
             $scope.gridOptions.data = response.data;
             $scope.pagination.totalItems = response.totalRows;
