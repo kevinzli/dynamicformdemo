@@ -58,8 +58,10 @@
 
         // The model object that we reference
 	    // on the  element in index.html
-	    vm.model = dynamicForm.model;
-	    console.log(JSON.stringify(vm.model).escapeSpecialChars());
+	    if(dynamicForm){
+		    vm.model = dynamicForm.model;
+		    console.log(JSON.stringify(vm.model).escapeSpecialChars());
+		}
 
 	    //option to make the form readonly
 	    vm.options = {
@@ -105,27 +107,41 @@
 	    	console.log(escapedStringifiedModel);
 	      	alert(JSON.stringify(vm.model), null, 2);
 
-	      	//created time: 2015-12-02T06:11:37.315Z
-	      	var currentdate = new Date(); 
-			var created = currentdate.getFullYear() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
-                + currentdate.getDate() + "T"  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds()+ ".315Z";
+	      	if(vm.isCreateNew){
+		      	//created time: 2015-12-02T06:11:37.315Z
+		      	var currentdate = new Date(); 
+				var created = currentdate.getFullYear() + "-"
+	                + (currentdate.getMonth()+1)  + "-" 
+	                + currentdate.getDate() + "T"  
+	                + currentdate.getHours() + ":"  
+	                + currentdate.getMinutes() + ":" 
+	                + currentdate.getSeconds()+ ".315Z";
 
-	      	var data={
-	      		"templateId": vm.templateId.toString(),
-	      		"fromJson": escapedStringifiedModel,
-	      		"created": created
-	      	};
+		      	var data={
+		      		"templateId": vm.templateId.toString(),
+		      		"fromJson": escapedStringifiedModel,
+		      		"created": created
+		      	};
 
-	      formservice.createNewForm(data)  
-	          .then(function (response) {
-	            $state.go('root.home');
-	        });
+		      formservice.createNewForm(data)  
+		          .then(function (response) {
+		            $state.go('root.home');
+		        });
+		    }
+		    else{	
+		    	//update
+		    	var id = vm.id;
+				var data={
+		      		"fromJson": escapedStringifiedModel,
+		      	};
+
+				formservice.updateAForm(id, data)  
+		          .then(function (response) {
+		            $state.go('root.home');
+		        });
+		    };
 	    }
-	};
+	}
 
 
 	String.prototype.escapeSpecialChars = function() {

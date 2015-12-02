@@ -62,6 +62,19 @@
                 });
             }
 
+            function updateAForm(id, data){
+                return $http({
+                    method: 'PUT',
+                    url: Backand.getApiUrl() + '/1/objects/form/' + id,
+                    data: data,
+                    params: {
+                        returnObject: true
+                    }
+                }).then(function (response) {
+                    return response.data;
+                });
+            }
+
             function getFormFromJSON(type){
                 var form ={};
 
@@ -97,8 +110,8 @@
                             voltage: '',
                             amps: '',
                             phase: '',
-                            fsrName: 'MARK WORDEN',
-                            originalFsrName: 'MARK WORDEN',
+                            fsrName: 'JAMES WOODS',
+                            originalFsrName: 'JAMES WOODS',
                             fsrDeclarationDate: getExpeditedConcealDate(true),
                         },
                         fields: [
@@ -560,7 +573,8 @@
                 getFormFromServer: getFormFromServer,
                 getFormFromJSON: getFormFromJSON,
                 getModelFromServer: getModelFromServer,
-                createNewForm: createNewForm
+                createNewForm: createNewForm,
+                updateAForm: updateAForm
             }
         }
 })();
