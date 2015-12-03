@@ -103,7 +103,7 @@
         { name: 'description', enableCellEdit: false, displayName: 'Description', width: '15%' },
         { name: 'version', enableCellEdit: false, displayName: 'version', width: '10%' },
         { name: 'templateJson', enableCellEdit: false, displayName: 'Template JSON', width: '40%' },
-        { name: 'created', enableCellEdit: false, displayName: 'Created', width: '15%'}
+        { name: 'created', enableCellEdit: false, enableFiltering:false, displayName: 'Created', width: '15%'}
 
       ];
 

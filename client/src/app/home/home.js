@@ -104,10 +104,10 @@
 
     $scope.gridOptions.columnDefs = [
         { name: 'id', enableCellEdit: false, displayName: 'Id', width: '5%' },
-        { name: 'templateId', enableCellEdit: false, displayName: 'TemplateId', width: '10%' },
+        { name: 'templateId', enableCellEdit: false, enableFiltering:false, displayName: 'TemplateId', width: '10%' },
         { name: 'fromJson', enableCellEdit: false, displayName: 'Form JSON', width: '60%' },
-        { name: 'created', enableCellEdit: false, displayName: 'Created', width: '15%' },
-        { name: 'action', displayName: 'Actions', cellTemplate: 
+        { name: 'created', enableCellEdit: false, enableFiltering:false, displayName: 'Created', width: '15%' },
+        { name: 'action', displayName: 'Actions', enableFiltering:false, cellTemplate: 
              '<div class="grid-action-cell">'+
              '<a href ui-sref="root.form({templateId: row.entity.templateId, id: row.entity.id })">View</a></div>', width: '10%'}
              //'<a ng-click="$event.stopPropagation(); grid.appScope.viewThisForm(row.entity);" href="#">View</a></div>', width: '10%'}
